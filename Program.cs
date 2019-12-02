@@ -1,44 +1,67 @@
-﻿using System;
+﻿/*
+ *  Coded by Evrim Altay KOLUAÇIK
+ *  Odesa, Ukraine - Dec 02 19
+ */
+using System;
 
 namespace MatrixNew
 {
     class Matrix {
         protected int columns, rows;
+        protected string name;
         protected double[,] data;
 
-        // public int[,] Data
-        // {
-        //     get => this.data;
-        //     set => this.data = value;
-        // }
-
-        // Default Matrix creator
-        public Matrix(int rows, int columns){
+        /// <summary>Create a Matrix with desired size </summary>  
+        /// <param name="name">name of the Matrix.</param>
+        /// <param name="rows">row size of the Matrix.</param>
+        /// <param name="columns">column size of the Matrix.</param>
+        public Matrix(string name, int rows, int columns){
+            this.name = name;
             this.columns = columns;
             this.rows = rows;
 
             this.data = new double[this.rows,this.columns];
         }
 
-        // Empty handler
+        /// <summary>Create a Matrix with 2x2 </summary>  
         public Matrix(){
+            this.name = "Unnamed";
             this.columns = 2;
             this.rows = 2;
 
             this.data = new double[this.rows,this.columns];
         }
 
+        /// <summary>Create a Matrix with 2x2 </summary>  
+        public Matrix(int rows, int columns)
+        {
+            this.name = "Unnamed";
+            this.columns = columns;
+            this.rows = rows;
+
+            this.data = new double[this.rows, this.columns];
+        }
+
+        /// <summary>This method adds value to the desired position of the Matrix </summary>   
+        /// <param name="data">data that will be added.</param>
+        /// <param name="row">row number of the data.</param>
+        /// <param name="column">column number of the data.</param>
         public void AddData(double data, int row, int column){
             this.data[row, column] += data;
         }
+
+        /// <summary>This method returns value from the desired position of the Matrix </summary>    
+        /// <param name="row">row number of the data.</param>
+        /// <param name="column">column number of the data.</param>
         public double GetData(int row, int column)
         {
             return this.data[row, column];
         }
 
+        /// <summary>This method initializes an action to read all of the Matrix data from the keyboard </summary>    
         public void ReadData(){
             Console.WriteLine("\n\n**************************************************");
-            Console.WriteLine("Reading data from keyboard\n");
+            Console.WriteLine("Reading data for Matrix \"{0}\"\n",this.name);
             for (int row = 0; row < this.rows; row++)
             {
                 for (int column = 0; column < this.columns; column++)
@@ -50,9 +73,10 @@ namespace MatrixNew
             Console.WriteLine("Matrix completed.");
         }
 
+        /// <summary>This method displays all data of the Matrix </summary>    
         public void DisplayData(){
             Console.WriteLine("\n\n**************************************************");
-            Console.WriteLine("Matrix Data\n");
+            Console.WriteLine("Matrix \"{0}\" Data\n",this.name);
             for (int row = 0; row < this.rows; row++)
             {
                 for (int column = 0; column < this.columns; column++)
@@ -77,6 +101,7 @@ namespace MatrixNew
 
     class Program
     {
+        /// <summary>This method runs the system in production mode. All the data will be asked from user.</summary>    
         static void Production(){
             int rows, columns, columns2;
             Matrix rimM1, rimM2;
@@ -90,14 +115,14 @@ namespace MatrixNew
             columns2 = Convert.ToInt32(Console.ReadLine());
 
 
-            if(rows < 1 || columns < 1){
-                Console.WriteLine("Fatal Error: Please enter the values bigger than 1");
+            if(rows < 1 || columns < 1 || columns2 < 1){
+                Console.WriteLine("\n\nFatal Error: Please enter the values bigger than 1\n\n");
                 Production();
                 return;
             }
             
-            rimM1 = new Matrix(rows,columns);
-            rimM2 = new Matrix(columns,columns2);
+            rimM1 = new Matrix("First Matrix", rows,columns);
+            rimM2 = new Matrix("Second Matrix", columns,columns2);
 
             rimM1.ReadData();
             rimM1.DisplayData();
@@ -117,9 +142,10 @@ namespace MatrixNew
             }
         }
 
+        /// <summary>This method runs the system with test variables for fast testing. </summary>    
         static void Demo(){
-            Matrix rimM = new Matrix(2, 3);
-            Matrix rimM2 = new Matrix(3, 2);
+            Matrix rimM = new Matrix("First Matrix", 2, 3);
+            Matrix rimM2 = new Matrix("Second Matrix",3, 2);
 
             // FIRST MATRIX
 
@@ -155,12 +181,16 @@ namespace MatrixNew
             }
         }
 
+        /// <summary>This method multiplies two Matrix and returns the result Matrix. </summary>    
+        /// <param name="fm">first Matrix.</param>
+        /// <param name="sm">second Matrix.</param>
+        /// <returns>result Matrix</returns>
         static Matrix Multiply(Matrix fm, Matrix sm){
             Matrix rimMR;
             if(fm.Columns != sm.Rows){
                 throw new Exception("These two matrixes cannot be multiplied!");
             }
-            rimMR = new Matrix(fm.Rows,sm.Columns);
+            rimMR = new Matrix("Result of the Multiplication", fm.Rows,sm.Columns);
             for (int r = 0; r < rimMR.Rows; r++){
                 for (int c = 0; c < rimMR.Columns; c++)
                 {
@@ -180,6 +210,7 @@ namespace MatrixNew
             // Demo();
             
             Console.WriteLine("Hello World!");
+            Console.WriteLine("Coded by Evrim Altay KOLUAÇIK");
         }
     }
 }
