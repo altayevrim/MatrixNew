@@ -52,11 +52,11 @@ namespace MatrixNew
             {
                 for (int column = 0; column < this.columns; column++)
                 {
-                    Console.WriteLine("Data: [{0}, {1}]: ",row,column);
+                    Console.WriteLine("Matrix value: {0} row  {1} column: ",row,column);
                     this.data[row,column] = Convert.ToDouble(Console.ReadLine());
                 }
             }
-            Console.WriteLine("Matrix completed.");
+            // Console.WriteLine("Matrix completed.");
         }
 
         public void DisplayData(){
@@ -89,13 +89,13 @@ namespace MatrixNew
         static void Production(){
             int rows, columns, columns2;
             Matrix rimM1, rimM2;
-            Console.WriteLine("Please enter row count for First Matrix");
+            Console.WriteLine("Row First");
             rows = Convert.ToInt32(Console.ReadLine());
             
-            Console.WriteLine("Please enter column count for First Matrix");
+            Console.WriteLine("Column First");
             columns = Convert.ToInt32(Console.ReadLine());
             
-            Console.WriteLine("Please enter column count for Second Matrix");
+            Console.WriteLine("Column Second");
             columns2 = Convert.ToInt32(Console.ReadLine());
 
 
